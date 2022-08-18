@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+   
+    <!-- font awesome cdn link  -->
+ 
+   
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href='{% static "style.css" %}'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   
+</head>
+
+<body>
+    <div class="container">
+        {% if user.is_superuser %}
+        <h1 class="jumbotron my-3" style ="padding-top:1rem;padding-bottom: 1rem;" >YOU ARE NOT ALLOWED HERE</h1>
+        {% else %}
+
+        {% if item|length == 0 %}
+        <div class="container-fluid">
+            <div class="jumbotron alert alert-danger">
+                &times; Your Shopping Cart is empty !!!
+            </div>
+        </div>
+        {% else %}
+        <div class="container-fluid" style="background:url('/static/images/c1.jpg');background-size:100% 100%;">
+            <div class="row py-5" style="background:rgba(0,0,0,0.5)">
+                <div class="col-md-12 py-5 my-2 text-light text-center font-weight-bold text-uppercase">
+                    {% if status %}
+                    <h1>{{status}}</h1>
+                    {% else %}
+                    <h1>My Cart ({{item|length}})</h1>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-9 my-5">
+                    <div style="box-shadow:0px 0px 10px rgb(227, 209, 207);">
+                        {% if messages %}
+                        <div class="{{cls}} mt-3">{{messages}}</div>
+                        {% endif %}
+                        <table class="table cart">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product Name</th>
+                                    <th>Product Price</th>  
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in item %}
+                                <tr id="row{{i.id}}">
+                                    <td><img src="{{i.service.img_ser.url}}" style="height:100px;width:150px;"></td>
+                                    <td>{{i.service.name_ser}}</td>
+                                    <td>&#8377;<del id="pp{{i.id}}">{{i.product.sprice}}</del> <span id="sp{{i.id}}">
+                                            {{i.service.price_ser}}</span></td>
+                                   
+                                    <td><a href="{% url 'car' %}" ><button onclick="remove('{{i.id}}')"class="btn btn-danger">&times;
+                                            Remove</button>
+                                            </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <section id="content" class="contet col-sm-8 col-md-9" style="box-shadow:0px 0px 10px rgb(227, 209, 207);">
+            <h2 class="text-center">CHECKOUT</h2>
+            <table class="table">
+                <tr>
+                    <td>Quantity</td>
+                    <td id="quantity" class="text-right"></td>
+                </tr>
+                <tr>
+                    <td>Grand Total</td>
+                    <td id="g_total" class="text-right"></td>
+                </tr>
+                </tr>
+            </table>
+        </section>
+      <a href="{% url 'process_payment' %}" class="btn btn-primary float-right" >
+               CHECKOUT
+        </a> <br><br><br>
+        {% endif %}
+        {% endif %}
+        
+        </div>
+        </div>
+        
+            <script>
+            function remove(id){
+                $.ajax({
+                    url: "{% url 'remove_ser' %}",
+                    data: {
+                        delete_cart:id
+                    },
+                    success: function (data) {
+                        $("#row" + id).hide();
+                    }
+                })
+            }
+            function total(){
+                $.ajax({
+                    url: "{% url 'get_cart_data' %}",
+                    type: "get",
+                    success: function (data) {
+                        save = data.tot;
+                        $("#quantity").html(data.quan + " courses");
+                        $("#g_total").html("&#8377;" + data.tot);
+
+                    }
+                })
+            } 
+            total();
+    
+        </script>
+        
+        <!-- jQuery library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js" integrity="sha512-bztGAvCE/3+a1Oh0gUro7BHukf6v7zpzrAb3ReWAVrt+bVNNphcl2tDTKCBr5zk7iEDmQ2Bv401fX3jeVXGIcA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+</body>
+
+
+    <!-- custom js file link -->
+   
+</html>

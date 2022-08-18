@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- css custom file -->
+    <link rel="stylesheet" href='{% static "style.css" %}'>
+    
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: medium;
+            background-color: black;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Add padding to containers */
+        .container {
+            margin: auto;
+            padding: 15px;
+            background-color: white;
+            max-width: 592px;
+        }
+
+        /* Full-width input fields */
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        input[type=text]:focus,
+        input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Overwrite default styles of hr */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        /* Set a style for the submit button */
+        .registerbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .registerbtn:hover {
+            opacity: 1;
+        }
+
+        /* Add a blue text color to links */
+        a {
+            color: dodgerblue;
+        }
+
+        /* Set a grey background color and center the text of the "sign in" section */
+        .signin {
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+    </style>
+</head>
+<script>
+    var loadFile = function(event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    </script>
+<body>
+    {% for m in messages %}
+    {{ m }}
+    {% endfor %}
+    <div class="form sign-in">
+        <form action="{% url 'upro' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            
+            <div class="container">
+                <h1>update profile</h1>
+                <hr>
+
+
+                <input type="file"  accept="image/*" name="imgs" id="file"  onchange="loadFile(event)">
+                <label for="file" style="cursor: pointer;">Upload Image</label>
+                <img id="output" width="200" />
+                <label>
+                    <span>First_Name</span>
+                    <input type="text" name="fname" placeholder="firstname" value="{{user.first_name}}">
+                </label>
+                <label>
+                    <span>Last_Name</span>
+                    <input type="text" name="lname" placeholder="lastname" value="{{ user.last_name }}">
+                </label>
+                <label>
+                    <span>User_Name</span>
+                    <input type="text" name="uname" placeholder="username" value=" {{user.username}}">
+                </label>
+                <label>
+                    <span>Email</span></label>
+                    <input type="email" placeholder="Enter Email" name="email" id="email" required value="{{user.email}}">
+                </label>
+
+                <label>
+                    <span>Contact</span>
+                    <input type="tel" name="cno" placeholder="contact number" value="{{data.ph_pro}}">
+                </label>
+                <br>
+                <label>
+                    <span>Address</span>
+                    <input type="text" name="add" placeholder="address" value="{{data.addr_pro}}">
+
+                </label>
+
+                <hr>
+                
+
+                <button type="submit" class="registerbtn">Update Profile</button>
+            
+            </div>
+
+            
+        </form>
+    </div>
+</body>
+
+</html>

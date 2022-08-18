@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>review</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet"
+        href='{% static "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" %}'>
+
+    <!-- custom css file l %}'ink  -->
+    <link rel="stylesheet" href='{% static "style.css" %}'>
+    
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+
+            <a href='{% url "hm" %}' class="logo"><img src='{% static "images/logo-1.png" alt="" %}'>
+            </a>
+
+            <div id="menu" class="fas fa-bars"></div>
+
+            <nav class="navbar">
+                <a href='{% url "hm" %}'>Home</a>
+                <a href='{% url "cor" %}'>Course</a>
+                <a href='{% url "tech" %}'>Teacher</a>
+                <a href='{% url "fee" %}'>Online Fee</a>
+                <a href='{% url "rev" %}'>Review</a>
+                <a href='{% url "cont" %}'>Contact</a>
+            </nav>
+
+        </header>
+
+        <h1 class="heading"> student's review </h1>
+
+        <!-- review section  -->
+
+        <section class="review">
+            <!-- <h1>{{user.username}}</h1> -->
+          
+            <div class="box">
+                <h1>{{user.username}}</h1>
+                <div class="box">
+                    <div class="student">
+                        <div class="student-info">
+                            <img src='{{ brns.img_ser.url }}'>
+                            
+                        </div >
+                        <!-- div class="teacher-faq-form"> -->
+                        <form method="POST" action="{% url 'fd' %}" data-lead="Residential">
+                            {% csrf_token %}
+                                <div class="row">
+                                <div class="col-md-6">
+                                    <label for="name">Your Name</label>
+                                    <input type="text" name="name" id="name" required value={{user.first_name}}>
+                                </div>
+                                <br>
+                                <div class="col-md-6">
+                                    <label for="phone">Email Address</label>
+                                    <input type="text" name="email" id="phone" required="required">
+                                </div>
+                                <br>
+                                <div class="col-md-6">
+                                    <h1></h1>>
+                                    <input type="hidden" name="usr" id="name" value="{{brns.id}}"required="required">
+                                </div>
+                                <br>
+                                
+
+                                <div class="col-md-6">
+                                    <label for="name">Your Ratings</label>
+                                    <select name="rat" id="review-items">
+                                        <option value="1">&#9733</option>
+                                        <option value="2">&#9733 &#9733</option>
+                                        <option value="3">&#9733 &#9733 &#9733</option>
+                                        <option value="4">&#9733 &#9733 &#9733 &#9733</option>
+                                        <option value="5">&#9733 &#9733 &#9733 &#9733 &#9733 </option>
+                                    </div>
+                                     <br>
+                                    <br>
+                                    <input type="hidden" name="bid" value= "{{brns.id}}" id="phone" required="required">
+                                    <br>
+                            
+                            <label for="comments">Message</label>
+                            <br>
+                            <br>
+                            <textarea name="comments" id="comments" rows="2" cols="20" required="required"></textarea>
+                            <br>
+                            <div class="nws-button text-center  gradient-bg text-uppercase">
+                                <button type="submit" value="Submit">Send Message now</button> 
+                            </div>
+                        </form>
+                    </div>
+
+                    <h1>review</h1>  
+                    {% for i in feed %} 
+                    <img src="{{i.prf.img_pro.url}}" height="150" width="200">
+                    <p> {{i.fname.username}}</p>
+                    <p> {{i.brn.name_ser}}</p>
+                    <p> {{i.message}}</p>
+                    <p> {{i.rating}}</p>
+                    
+                    {% endfor %}       
+
+            <!-- <div class="box">
+                <div class="student">
+                    <div class="student-info">
+                        <img src='{% static "images/student-2.png" alt="" %}'>
+                        <div class="info">
+                            <h3>Rahul</h3>
+                            <span>student</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-quote-right"></i>
+                </div>
+                <p class="text">A good place for learning and proper knowledge, best teacher in pythone.
+                    Institute that provides path to achieve a goal and ambitions.</p>
+            </div>
+
+            <div class="box">
+                <div class="student">
+                    <div class="student-info">
+                        <img src='{% static "images/student-3.png" alt="" %}'>
+                        <div class="info">
+                            <h3>Anam Fatima</h3>
+                            <span>student</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-quote-right"></i>
+                </div>
+                <p class="text">From my point of view ,it was a wonderful experience. If you're looking for summer
+                    training institute for your project then definitely you must need to check out Cosmo for once, just
+                    need to use your own mind at the pricing of courses and rest of the things are good.</p>
+            </div>
+
+            <div class="box">
+                <div class="student">
+                    <div class="student-info">
+                        <img src='{% static "images/student-4.png" alt="" %}'>
+                        <div class="info">
+                            <h3>Riya Sharma</h3>
+                            <span>student</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-quote-right"></i>
+                </div>
+                <p class="text">Best place for project work and to learn new technologies. The institute which
+                    help us to learning the all new courses in a better and an easy manner with well and qualified
+                    faculties.😊</p>
+            </div>
+
+            <div class="box">
+                <div class="student">
+                    <div class="student-info">
+                        <img src='{% static "images/student-5.png" alt="" %}'>
+                        <div class="info">
+                            <h3>Abhimanyu</h3>
+                            <span>student</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-quote-right"></i>
+                </div>
+                <p class="text">I am Abhimanyu and this training institute teachers guide us and teach us very nicely
+                    and the topic they teach very clearly and explain that topic also.The teachers explain the topic
+                    like a friend and this is the good quality of this training institute.it is a good training
+                    institute.thankyou for guiding us.</p>
+            </div>
+
+            <div class="box">
+                <div class="student">
+                    <div class="student-info">
+                        <img src='{% static "images/student-6.png" alt="" %}'>
+                        <div class="info">
+                            <h3>Zoha khan</h3>
+                            <span>student</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-quote-right"></i>
+                </div>
+                <p class="text">Best training Institute in lucknow. Trainers are very Corporative and helping. Institute
+                    is very good for beginners who want to learn things from scratch.</p>
+            </div> ////////////////////////////
+
+        </section>
+
+        <!-- footer section  -->
+
+        <section class="footer">
+
+            <div class="box-container">
+
+                <div class="box">
+                    <h3>About Us</h3>
+                    <p>Here at Pratice To Perfect, We believe in making students self-learner and learn from the
+                        environment by
+                        seeing real development process of live projects and having a feel of 1 to 1 training not only
+                        in whiteboard and marker training.</p>
+                </div>
+
+                <div class="box">
+                    <h3>quick links</h3>
+                    <a href='{% url "hm" %}'>home</a>
+                    <a href='{% url "cor" %}'>course</a>
+                    <a href='{% url "tech" %}'>teacher</a>
+                    <!-- <a href='{% url "fee" %}'>price</a> -->
+                    <!-- <a href='{% static "#" %}'>review</a> -->
+                    <a href='{% url "cont" %}'>contact</a>
+                </div>
+
+                <div class="box">
+                    <h3>follow us</h3>
+                    <a href="https://www.facebook.com" >facebook</a>
+                    <a href="https://www.twitter.com" >twitter</a>
+                    <a href="https://www.instagram.com" >instagram</a>
+                    <a href="https://www.linkedin.com" >linkedin</a>
+                </div>
+
+                <div class="box">
+                    <h3>contact us</h3>
+                    <p> <i class="fas fa-phone"></i> +91-8896326617 </p>
+                    <p> <i class="fas fa-envelope"></i> Athar@gmail.com </p>
+                    <p> <i class="fas fa-map-marker-alt"></i> Lucknow, india </p>
+                </div>
+
+            </div>
+
+            <div class="credit"> created by <span> Aman Maurya and Mohammad Athar </span> | all rights reserved </div>
+
+        </section>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- custom js file link -->
+    <script src='{% static "script.js" %}'></script>
+
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>feedback</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet"
+        href='{% static "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" %}'>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href='{% static "style.css" %}'>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+
+            <a href='{% url "hm" %}' class="logo"><img src='{% static "images/logo-1.png" alt="" %}'>
+            </a>
+
+            <div id="menu" class="fas fa-bars"></div>
+
+            <nav class="navbar">
+                <a href='{% url "hm" %}'>Home</a>
+                <a href='{% url "cor" %}'>Course</a>
+                <a href='{% url "tech" %}'>Teacher</a>
+                <a href='{% url "cnc" %}'>counselling</a>
+                <a href='{% url "cont" %}'>Contact</a>
+            </nav>
+
+        </header>
+
+        <h1 class="heading">feedback</h1>
+
+        <!-- contact section  -->
+
+        <section class="contact">
+
+            <div class="image">
+                <img src='{% static "images/contact-img.svg" alt="" %}'>
+            </div>
+
+            <div class="feedback-form">
+                <div class="feedback-form">
+                    <form action="{% url 'feed' %}" method="post">
+                        {% csrf_token %}
+                        <div class="single-form">FIRST NAME:
+                            <input type="text" value="{{user.username}}" class="form-control" placeholder="First Name ">
+                        </div></br>
+
+                        <div class="single-form">EMAIL:
+                            <input type="text" name="em" class="form-control" placeholder="Email">
+                        </div></br>
+                        <div class="single-form">
+                            <input type="hidden" name="brid" value={{brns.id}} class="form-control" placeholder="Email">
+                        </div></br>
+                        <div class="single-form">
+                            <select name="rat" id="cars">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="single-form">MESSAGE:
+                            <input type="tell" name="mes" class="form-control" placeholder="message">
+                        </div></br>
+                        <div class="single-form">
+                            <button class="btn btn-primary btn-hover-heading-color w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- footer section  -->
+
+        <section class="footer">
+
+            <div class="box-container">
+
+                <div class="box">
+                    <h3>about us</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, maxime!</p>
+                </div>
+
+                <div class="box">
+                    <h3>quick links</h3>
+                    <a href='{% url "hm" %}'>home</a>
+                    <a href='{% url "cor" %}'>course</a>
+                    <a href='{% url "tech" %}'>teacher</a>
+                    <!-- <a href='{% url "fee" %}'>price</a> -->
+                    <!-- <a href="#">review</a> -->
+                    <a href='{% url "cont" %}'>contact</a>
+                </div>
+
+                <div class="box">
+                    <h3>follow us</h3>
+                    <a href="https://www.facebook.com" >facebook</a>
+                    <a href="https://www.twitter.com" >twitter</a>
+                    <a href="https://www.instagram.com" >instagram</a>
+                    <a href="https://www.linkedin.com" >linkedin</a>
+                </div>
+
+                <div class="box">
+                    <h3>contact us</h3>
+                    <p> <i class="fas fa-phone"></i> +91-8896326617 </p>
+                    <p> <i class="fas fa-envelope"></i> Athar@gmail.com </p>
+                    <p> <i class="fas fa-map-marker-alt"></i> Lucknow, india </p>
+                </div>
+
+            </div>
+
+            <div class="credit"> created by <span> Aman Maurya and Mohammad Athar </span> | all rights reserved </div>
+
+        </section>
+    </div>
+    <!-- custom js file link -->
+    <script src='{% static "script.js" % }'></script>
+
+</body>
+
+</html>
